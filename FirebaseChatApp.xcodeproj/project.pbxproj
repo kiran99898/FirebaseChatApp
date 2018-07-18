@@ -12,7 +12,6 @@
 		9F0E4FBC20FF7B6100E009CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBA20FF7B6100E009CE /* Main.storyboard */; };
 		9F0E4FBE20FF7B6200E009CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBD20FF7B6200E009CE /* Assets.xcassets */; };
 		9F0E4FC120FF7B6200E009CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBF20FF7B6200E009CE /* LaunchScreen.storyboard */; };
-		9F0E4FCB20FF861500E009CE /* newViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E4FCA20FF861500E009CE /* newViewController.swift */; };
 		9F0E4FCD20FF8E0D00E009CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FCC20FF8E0D00E009CE /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		9F0E4FBD20FF7B6200E009CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F0E4FC020FF7B6200E009CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F0E4FC220FF7B6200E009CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9F0E4FCA20FF861500E009CE /* newViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newViewController.swift; sourceTree = "<group>"; };
 		9F0E4FCC20FF8E0D00E009CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +63,6 @@
 				9F0E4FBF20FF7B6200E009CE /* LaunchScreen.storyboard */,
 				9F0E4FC220FF7B6200E009CE /* Info.plist */,
 				9F0E4FCC20FF8E0D00E009CE /* GoogleService-Info.plist */,
-				9F0E4FCA20FF861500E009CE /* newViewController.swift */,
 			);
 			path = FirebaseChatApp;
 			sourceTree = "<group>";
@@ -144,7 +141,6 @@
 			files = (
 				9F0E4FB920FF7B6100E009CE /* ViewController.swift in Sources */,
 				9F0E4FB720FF7B6100E009CE /* AppDelegate.swift in Sources */,
-				9F0E4FCB20FF861500E009CE /* newViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
