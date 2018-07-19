@@ -33,6 +33,7 @@ class NewMessageTableViewController: UITableViewController {
             let user = User()
             user.email = (snapshot.value as? NSDictionary)?["email"] as? String ?? ""
             user.name = (snapshot.value as? NSDictionary)?["name"] as? String ?? ""
+            user.profileImageUrl = (snapshot.value as? NSDictionary)?["profileImageUrl"] as? String ??  ""
             self.users.append(user)
             print(user.email as Any)
             print(user.name as Any)
@@ -64,28 +65,40 @@ class NewMessageTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        //        cell.textLabel?.text = "thsi ssdfasdfa"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let user = users[indexPath.row]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
         
-        cell.imageView?.image = UIImage(named: "msg")
-        if let profileImageUrl = user.profileImageUrl{
-            let url = URL(string: profileImageUrl)
-            URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                DispatchQueue.main.async {
-                    cell.imageView?.image = UIImage(data: data!)
-                    
-                }
-                
-            }
+//        cell.imageView?.image = UIImage(named: "msg")
+        let  profileImageUrl = user.profileImageUrl
+        if profileImageUrl == nil {
+            print("cant get profile image ")
         }
+        else{
+            print("profile image \(profileImageUrl!)")        }
+        let url = URL(string: profileImageUrl!)
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            DispatchQueue.main.async {
+                cell.imageView?.image = UIImage(data: data!)
+            }
+        }.resume()
+//            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+//                if error != nil {
+//                    print(error!)
+//                    return
+//                }
+//                DispatchQueue.main.async {
+//                cell.imageView?.image = UIImage(data: data!)
+//
+//                }
+//
+//            }.resume()
+        
         return cell
     }
     
