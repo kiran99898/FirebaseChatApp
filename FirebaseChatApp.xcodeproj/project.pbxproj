@@ -13,6 +13,7 @@
 		9F0E4FBE20FF7B6200E009CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBD20FF7B6200E009CE /* Assets.xcassets */; };
 		9F0E4FC120FF7B6200E009CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBF20FF7B6200E009CE /* LaunchScreen.storyboard */; };
 		9F0E4FD120FF918800E009CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FD020FF918800E009CE /* GoogleService-Info.plist */; };
+		9F5B76C22101C6D800A630C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B76C12101C6D800A630C8 /* Extensions.swift */; };
 		9FFF53CD20FF96B400CE39EE /* NewMessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF53CC20FF96B400CE39EE /* NewMessageTableViewController.swift */; };
 		9FFF53D020FF974C00CE39EE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF53CF20FF974C00CE39EE /* User.swift */; };
 		9FFF53D220FF97E300CE39EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF53D120FF97E300CE39EE /* LoginViewController.swift */; };
@@ -32,6 +33,7 @@
 		9F0E4FC020FF7B6200E009CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F0E4FC220FF7B6200E009CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F0E4FD020FF918800E009CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9F5B76C12101C6D800A630C8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9FFF53CC20FF96B400CE39EE /* NewMessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageTableViewController.swift; sourceTree = "<group>"; };
 		9FFF53CF20FF974C00CE39EE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9FFF53D120FF97E300CE39EE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		9F0E4FB520FF7B6100E009CE /* FirebaseChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				9F5B76C02101C6BC00A630C8 /* Helpers */,
 				9FFF53CE20FF973800CE39EE /* Modal */,
 				9F0E4FB620FF7B6100E009CE /* AppDelegate.swift */,
 				9FFF53D520FF987700CE39EE /* Controller */,
@@ -81,6 +84,14 @@
 				9F0E4FD020FF918800E009CE /* GoogleService-Info.plist */,
 			);
 			path = FirebaseChatApp;
+			sourceTree = "<group>";
+		};
+		9F5B76C02101C6BC00A630C8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9F5B76C12101C6D800A630C8 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		9FFF53CE20FF973800CE39EE /* Modal */ = {
@@ -240,6 +251,7 @@
 			files = (
 				9FFF53D420FF983500CE39EE /* LoginViewController + Handler.swift in Sources */,
 				9F0E4FB920FF7B6100E009CE /* MessageViewController.swift in Sources */,
+				9F5B76C22101C6D800A630C8 /* Extensions.swift in Sources */,
 				9FFF53D020FF974C00CE39EE /* User.swift in Sources */,
 				9FFF53CD20FF96B400CE39EE /* NewMessageTableViewController.swift in Sources */,
 				9FFF53D220FF97E300CE39EE /* LoginViewController.swift in Sources */,
@@ -391,7 +403,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N373WCYYY4;
 				INFOPLIST_FILE = FirebaseChatApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kiranrana.FirebaseChatApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -407,7 +422,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N373WCYYY4;
 				INFOPLIST_FILE = FirebaseChatApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kiranrana.FirebaseChatApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
