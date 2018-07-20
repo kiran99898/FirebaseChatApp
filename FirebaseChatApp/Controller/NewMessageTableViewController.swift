@@ -20,36 +20,23 @@ class NewMessageTableViewController: UITableViewController {
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         fetchUser()
     }
-    
-    // fetch all users from databse to xcode console
+    // fetching data from database
     func fetchUser(){
         Database.database().reference().child("users").queryOrderedByKey().observe(DataEventType.childAdded) { (snapshot) in
             if !snapshot.exists(){
                 print("cant get value from snapshot")
                 return
             }
-            //            print(snapshot)
-            //            print(snapshot.value!)
+            //parsing snapshot values
             let user = User()
             user.email = (snapshot.value as? NSDictionary)?["email"] as? String ?? ""
             user.name = (snapshot.value as? NSDictionary)?["name"] as? String ?? ""
             user.profileImageUrl = (snapshot.value as? NSDictionary)?["profileImageUrl"] as? String ??  ""
             self.users.append(user)
-            print(user.email as Any)
-            print(user.name as Any)
-            
-            
-            //            if  let dictionary = snapshot.value as? [String: AnyObject] {
-            //                let user = User()
-            //                user.setValuesForKeys(dictionary)
-            //                self.users.append(user)
-            //                print(user.name!, user.email!)
-            //
             DispatchQueue.global().async(execute: {
-                print("teste")
+                print("error")
                 DispatchQueue.main.sync{
                     self.tableView.reloadData()
-                    
                 }
             })
         }
@@ -59,24 +46,20 @@ class NewMessageTableViewController: UITableViewController {
     @objc func handleCancel()  {
         dismiss(animated: true, completion: nil)
     }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         let user = users[indexPath.row]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
-        
-//        cell.imageView?.image = UIImage(named: "msg")
         let  profileImageUrl = user.profileImageUrl
-        if profileImageUrl == nil {
-            print("cant get profile image ")
-        }
-        else{
-            print("profile image \(profileImageUrl!)")        }
         let url = URL(string: profileImageUrl!)
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
@@ -84,28 +67,40 @@ class NewMessageTableViewController: UITableViewController {
                 return
             }
             DispatchQueue.main.async {
-                cell.imageView?.image = UIImage(data: data!)
+                cell.profileImageView.image = UIImage(data: data!)
             }
-        }.resume()
-//            URLSession.shared.dataTask(with: url!) { (data, response, error) in
-//                if error != nil {
-//                    print(error!)
-//                    return
-//                }
-//                DispatchQueue.main.async {
-//                cell.imageView?.image = UIImage(data: data!)
-//
-//                }
-//
-//            }.resume()
-        
+            }.resume()
         return cell
     }
     
 }
+//  .......CUSTOM CELL
 class UserCell:UITableViewCell {
+    //For Cell Subviews  Custom Layout
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textLabel?.frame = CGRect(origin: CGPoint(x: 100, y: textLabel!.frame.origin.y - 2),  size: CGSize(width: textLabel!.frame.width, height: textLabel!.frame.height))
+        detailTextLabel?.frame = CGRect(origin: CGPoint(x: 100, y: detailTextLabel!.frame.origin.y + 2),  size: CGSize(width: detailTextLabel!.frame.width, height: textLabel!.frame.height))
+    }
+    //imageview custom layout
+    let profileImageView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "msg")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 35
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        addSubview(profileImageView)
+        //add constraint anchors
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
