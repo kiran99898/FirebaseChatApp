@@ -60,19 +60,9 @@ class NewMessageTableViewController: UITableViewController {
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
         if let profileImageUrl = user.profileImageUrl {
+            //IMAGES AFTER CACHING LOADS
           cell.profileImageView.loadImageWithCacheWithUrlString(urlString: profileImageUrl)
         }
-//        let  profileImageUrl = user.profileImageUrl
-//        let url = URL(string: profileImageUrl!)
-//        URLSession.shared.dataTask(with: url!) { (data, response, error) in
-//            if error != nil {
-//                print(error!)
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                cell.profileImageView.image = UIImage(data: data!)
-//            }
-//            }.resume()
         return cell
     }
     
