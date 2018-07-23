@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 
 class NewMessageTableViewController: UITableViewController {
+
     //this is cell identifier
     let cellId = "cellId"
     //user array takes refrences from User.swift where its properties are decleared
@@ -72,7 +73,7 @@ class UserCell:UITableViewCell {
     //For Cell Subviews  Custom Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.frame = CGRect(origin: CGPoint(x: 100, y: textLabel!.frame.origin.y - 2),  size: CGSize(width: textLabel!.frame.width, height: textLabel!.frame.height))
+        textLabel?.frame = CGRect(origin: CGPoint(x: 100, y: textLabel!.frame.origin.y - 2),  size: CGSize(width: textLabel!.frame.width , height: textLabel!.frame.height))
         detailTextLabel?.frame = CGRect(origin: CGPoint(x: 100, y: detailTextLabel!.frame.origin.y + 2),  size: CGSize(width: detailTextLabel!.frame.width, height: textLabel!.frame.height))
     }
     //imageview custom layout

@@ -11,40 +11,31 @@ import Firebase
 
 //extension of class LoginViewController
 extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
     
     func handleRegisterButton() {
-        
         guard let email = emailTextfield.text, let password = passwordTextfield.text, let name = nameTextfield.text else {
             print("Error")
             return
         }
-        
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 // print("Error")
                 return
             }
-            
             // MARK: - hadleLogin//
-            
             guard let uid = Auth.auth().currentUser?.uid  else {
                 return
             }
-            
             // MARK: - image successful authenficated user
-            
             let imageName = NSUUID().uuidString //converts the imagename
             let storageRef = Storage.storage().reference().child("profile_images").child("\(imageName).png")
-            
             if let _ = self.profileImage.image, let  uploadData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1) {
                 storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
-                    
                     if error != nil, metadata != nil {
                         print(error ?? "")
                         return
-                        
                     }
-                    
                     storageRef.downloadURL(completion: { (url, error) in
                         if error != nil {
                             print(error!.localizedDescription)
@@ -72,6 +63,8 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
                 return
             }
             else{
+                //fetch data from fetchuserandsetupnavbartitle functio which is in MessageViewController
+                self.messageController?.fetchUserAndSetupNavBarTitle()
                 self.dismiss(animated: true, completion: nil)
                 print("data successivefully saved")
             }

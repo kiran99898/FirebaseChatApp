@@ -18,9 +18,7 @@ class MessageViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: msgImage, style: .plain, target: self, action: #selector(handleNewMessage))
         checkIfUserIsLoggedIn()
     }
-    
-    
-    @objc func handleNewMessage(){
+   @objc func handleNewMessage(){
         //when clock to handlenewmessage selector ie right navigation item . it presents newmessagetable view controller with navigarin bar
         let newMessageController = NewMessageTableViewController()
         let navController = UINavigationController(rootViewController: newMessageController)
@@ -33,22 +31,27 @@ class MessageViewController: UITableViewController {
             print("usernot logged in ")
         }
         else {
-            //grabs uid values. ie individual
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot)
-                
-                //fetch values to view
-                if let dictionary = snapshot.value as? [String: AnyObject]{
-                    self.navigationItem.title = dictionary["name"] as? String
-                }
-                
-            }, withCancel: nil)
-            
+            fetchUserAndSetupNavBarTitle()
+      
         }
     }
+    //fetch uers and set navbar title
+    func fetchUserAndSetupNavBarTitle () {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            
+            //fetch values to view
+            if let dictionary = snapshot.value as? [String: AnyObject]{
+                self.navigationItem.title = dictionary["name"] as? String
+            }
+            
+        }, withCancel: nil)
+}
     
-    @objc func handleLogout(){
+@objc func handleLogout(){
         //if user if logout , it will stay logout
         do {
             print("no user logged in ")
@@ -61,6 +64,7 @@ class MessageViewController: UITableViewController {
         
         //when click it goes to the loginViewController
         let loginController = LoginViewController()
+        loginController.messageController = self
         present(loginController, animated: true, completion: nil)
         
     }
