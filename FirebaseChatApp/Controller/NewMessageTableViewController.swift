@@ -34,12 +34,9 @@ class NewMessageTableViewController: UITableViewController {
             user.name = (snapshot.value as? NSDictionary)?["name"] as? String ?? ""
             user.profileImageUrl = (snapshot.value as? NSDictionary)?["profileImageUrl"] as? String ??  ""
             self.users.append(user)
-            DispatchQueue.global().async(execute: {
-                print("error")
-                DispatchQueue.main.sync{
-                    self.tableView.reloadData()
-                }
-            })
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         
     }

@@ -30,7 +30,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
             // MARK: - image successful authenficated user
             let imageName = NSUUID().uuidString //converts the imagename
             let storageRef = Storage.storage().reference().child("profile_images").child("\(imageName).png")
-            if let _ = self.profileImage.image, let  uploadData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1) {
+            if let _ = self.profileImage.image,  let uploadData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1) { // 0.1 image compression ranges from 0.0 to 1.0
                 storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                     if error != nil, metadata != nil {
                         print(error ?? "")
@@ -64,7 +64,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
             }
             else{
                 //fetch data from fetchuserandsetupnavbartitle functio which is in MessageViewController
-                self.messageController?.fetchUserAndSetupNavBarTitle()
+                self.messageController?.navigationItem.title = values["name"] as? String
                 self.dismiss(animated: true, completion: nil)
                 print("data successivefully saved")
             }
