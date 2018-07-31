@@ -80,12 +80,5 @@ class ChatlogController: UICollectionViewController {
         childRef.updateChildValues(values)
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
