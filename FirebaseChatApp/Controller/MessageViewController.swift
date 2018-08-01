@@ -10,8 +10,7 @@ import UIKit
 import Firebase
 
 class MessageViewController: UITableViewController {
-    
-    
+    let cellId = "cellId"
     override func viewDidLoad() {
         super.viewDidLoad()
         //add tapGestureReconizer in navigationBarTitle
@@ -22,22 +21,35 @@ class MessageViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: msgImage, style: .plain, target: self, action: #selector(handleNewMessage))
         checkIfUserIsLoggedIn()
         observeMessages()
+        //register custom cell
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     
     var messages = [Message]()
+    //grouping the message
+    var messageDictionary = [String: Message]()
     //...   OBSERVE MESSAGE FROM DATABASE
     func observeMessages() {
         let ref = Database.database().reference().child("messages")
         ref.observe(.childAdded, with: { (snapshot) in
+            if  let value = snapshot.value as? [String: Any] {
             let message = Message()
-            let value = snapshot.value as? NSDictionary
-            message.text = value?["text"] as? String ?? ""
-            message.toId = value?["toId"] as? String ?? ""
-            self.messages.append(message)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+             message.setValuesForKeys(value)
+       //      self.messages.append(message)
+                   //grouping the message
+                if let toId = message.toId  {
+                    self.messageDictionary[toId] = message
+                    self.messages = Array(self.messageDictionary.values)
+                    //sorting the message from latest first to so on 
+                    self.messages.sort(by: { (message1, message2) -> Bool in
+                        return message1.timeStamp.intValue > message2.timeStamp.intValue
+                    })
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
-            print(message.text!)
         }, withCancel: nil)
     }
     
@@ -47,12 +59,18 @@ class MessageViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        //        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        //cell = customcell used Usercell 
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         let message = messages[indexPath.row]
-        cell.detailTextLabel?.text =  message.text
-        cell.textLabel?.text = message.toId
+        cell.message = message
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
     
     
     @objc func showChatControllerForUser(user: User){

@@ -9,9 +9,9 @@
 import UIKit
 
 class Message: NSObject {
-    var fromId: String?
-    var timeStamp: NSNumber?
-    var text: String?
-    var toId: String?
-
+    @objc var fromId: String = ""
+    @objc  var timeStamp: NSNumber = 0
+    @objc var text: String = ""
+    @objc var toId: String?
+    
 }

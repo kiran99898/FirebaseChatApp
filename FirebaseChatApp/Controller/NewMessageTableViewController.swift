@@ -74,38 +74,4 @@ class NewMessageTableViewController: UITableViewController {
     }
     
 }
-//  .......CUSTOM CELL
-class UserCell:UITableViewCell {
-    //For Cell Subviews  Custom Layout
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        textLabel?.frame = CGRect(origin: CGPoint(x: 100, y: textLabel!.frame.origin.y - 2),  size: CGSize(width: textLabel!.frame.width , height: textLabel!.frame.height))
-        detailTextLabel?.frame = CGRect(origin: CGPoint(x: 100, y: detailTextLabel!.frame.origin.y + 2),  size: CGSize(width: detailTextLabel!.frame.width, height: textLabel!.frame.height))
-    }
-    //imageview custom layout
-    let profileImageView:UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "msg")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 35
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-        addSubview(profileImageView)
-        //add constraint anchors
-        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
 
