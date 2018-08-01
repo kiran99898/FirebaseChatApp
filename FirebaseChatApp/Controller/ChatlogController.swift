@@ -10,6 +10,11 @@ import UIKit
 import Firebase
 
 class ChatlogController: UICollectionViewController {
+    var user: User? {
+        didSet{
+            navigationItem.title = user?.name
+        }
+    }
     // textfield refrence . it should be accessable
     let inputTextField: UITextField = {
         let textField = UITextField()
@@ -20,7 +25,6 @@ class ChatlogController: UICollectionViewController {
     
     override  func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "chat log controller"
         setupInputComponent()
         collectionView?.backgroundColor = UIColor.white
     }
@@ -76,7 +80,10 @@ class ChatlogController: UICollectionViewController {
     @objc func handleSendButton()  {
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
-        let values = ["text": inputTextField.text!]
+        let toId = user!.id!
+        let fromId = Auth.auth().currentUser!.uid
+        let timeStamp =  NSDate().timeIntervalSince1970
+        let values = ["text": inputTextField.text!, "toId": toId, "FromId": fromId, "TimeStamp": timeStamp] as [String : Any]
         childRef.updateChildValues(values)
     }
     

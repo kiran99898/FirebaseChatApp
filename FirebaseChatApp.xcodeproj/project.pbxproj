@@ -13,6 +13,7 @@
 		9F0E4FBE20FF7B6200E009CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBD20FF7B6200E009CE /* Assets.xcassets */; };
 		9F0E4FC120FF7B6200E009CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FBF20FF7B6200E009CE /* LaunchScreen.storyboard */; };
 		9F0E4FD120FF918800E009CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F0E4FD020FF918800E009CE /* GoogleService-Info.plist */; };
+		9F24C5F72111738600DC84CF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F24C5F62111738600DC84CF /* Message.swift */; };
 		9F5B76C22101C6D800A630C8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B76C12101C6D800A630C8 /* Extensions.swift */; };
 		9F9B2E4B2109DDF800429E3F /* ChatlogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9B2E4A2109DDF800429E3F /* ChatlogController.swift */; };
 		9FFF53CD20FF96B400CE39EE /* NewMessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF53CC20FF96B400CE39EE /* NewMessageTableViewController.swift */; };
@@ -34,6 +35,7 @@
 		9F0E4FC020FF7B6200E009CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F0E4FC220FF7B6200E009CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F0E4FD020FF918800E009CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9F24C5F62111738600DC84CF /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		9F5B76C12101C6D800A630C8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9F9B2E4A2109DDF800429E3F /* ChatlogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatlogController.swift; sourceTree = "<group>"; };
 		9FFF53CC20FF96B400CE39EE /* NewMessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageTableViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				9FFF53CF20FF974C00CE39EE /* User.swift */,
+				9F24C5F62111738600DC84CF /* Message.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				9F9B2E4B2109DDF800429E3F /* ChatlogController.swift in Sources */,
 				9FFF53D420FF983500CE39EE /* LoginViewController + Handler.swift in Sources */,
 				9F0E4FB920FF7B6100E009CE /* MessageViewController.swift in Sources */,
+				9F24C5F72111738600DC84CF /* Message.swift in Sources */,
 				9F5B76C22101C6D800A630C8 /* Extensions.swift in Sources */,
 				9FFF53D020FF974C00CE39EE /* User.swift in Sources */,
 				9FFF53CD20FF96B400CE39EE /* NewMessageTableViewController.swift in Sources */,

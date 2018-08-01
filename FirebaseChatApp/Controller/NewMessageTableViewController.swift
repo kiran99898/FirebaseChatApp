@@ -30,6 +30,7 @@ class NewMessageTableViewController: UITableViewController {
             }
             //parsing snapshot values
             let user = User()
+            user.id = snapshot.key
             user.email = (snapshot.value as? NSDictionary)?["email"] as? String ?? ""
             user.name = (snapshot.value as? NSDictionary)?["name"] as? String ?? ""
             user.profileImageUrl = (snapshot.value as? NSDictionary)?["profileImageUrl"] as? String ??  ""
@@ -62,6 +63,14 @@ class NewMessageTableViewController: UITableViewController {
           cell.profileImageView.loadImageWithCacheWithUrlString(urlString: profileImageUrl)
         }
         return cell
+    }
+    var messageController: MessageViewController?
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismiss(animated: true, completion: nil)
+        print("dissmiss complete")
+        let user = self.users[indexPath.row]
+        self.messageController?.showChatControllerForUser(user: user)
     }
     
 }
