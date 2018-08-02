@@ -80,6 +80,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
         imagerPicker.allowsEditing = true
         present(imagerPicker, animated: true, completion: nil)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("info\(info)")
         var  selectedImagefromPicker: UIImage?

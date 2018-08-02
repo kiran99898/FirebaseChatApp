@@ -20,7 +20,7 @@ class MessageViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: msgImage, style: .plain, target: self, action: #selector(handleNewMessage))
         checkIfUserIsLoggedIn()
-        observeMessages()
+        // observeMessages()
         //register custom cell
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
@@ -29,14 +29,52 @@ class MessageViewController: UITableViewController {
     //grouping the message
     var messageDictionary = [String: Message]()
     //...   OBSERVE MESSAGE FROM DATABASE
+    //observe message from user-messsage
+    func observeUserMessage(){
+        guard let uid = Auth.auth().currentUser?.uid
+            else {
+                return
+        }
+        //grabs the uid from user-messages
+        let ref = Database.database().reference().child("user-messages").child(uid)
+        ref.observe(.childAdded, with: { (snapshot) in
+            //grabs value from messageRefrance with the help of messageid which is snapshotkey
+            let messageId = snapshot.key
+            let messageRefrence = Database.database().reference().child("messages").child(messageId)
+            messageRefrence.observeSingleEvent(of: .value, with: { (snapshot) in
+                if  let value = snapshot.value as? [String: Any] {
+                    let message = Message()
+                    message.setValuesForKeys(value)
+                    //      self.messages.append(message)
+                    //grouping the message
+                    if let toId = message.toId  {
+                        self.messageDictionary[toId] = message
+                        self.messages = Array(self.messageDictionary.values)
+                        //sorting the message from latest first to so on
+                        self.messages.sort(by: { (message1, message2) -> Bool in
+                            return message1.timeStamp.intValue > message2.timeStamp.intValue
+                        })
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }            }, withCancel: nil)
+            
+        }, withCancel: nil)
+        
+        
+    }
+    
+    
     func observeMessages() {
         let ref = Database.database().reference().child("messages")
         ref.observe(.childAdded, with: { (snapshot) in
             if  let value = snapshot.value as? [String: Any] {
-            let message = Message()
-             message.setValuesForKeys(value)
-       //      self.messages.append(message)
-                   //grouping the message
+                let message = Message()
+                message.setValuesForKeys(value)
+                //      self.messages.append(message)
+                //grouping the message
                 if let toId = message.toId  {
                     self.messageDictionary[toId] = message
                     self.messages = Array(self.messageDictionary.values)
@@ -110,10 +148,21 @@ class MessageViewController: UITableViewController {
             //fetch values to view
             if let dictionary = snapshot.value as? [String: AnyObject]{
                 self.navigationItem.title = dictionary["name"] as? String
+                
+                //updates table
+                self.messages.removeAll()
+                self.messageDictionary.removeAll()
+                self.tableView.reloadData()
+                self.observeUserMessage()
+                
             }
             
         }, withCancel: nil)
     }
+    
+    //    func setupNavBarWithUser(user: User){
+    //
+    //    }
     
     @objc func handleLogout(){
         //if user if logout , it will stay logout

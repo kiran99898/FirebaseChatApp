@@ -13,18 +13,7 @@ import Firebase
 class UserCell:UITableViewCell {
     var message: Message? {
         didSet{
-            if let toId = message?.toId {
-                let ref = Database.database().reference().child("users").child(toId)
-                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    if let value = snapshot.value as? NSDictionary {
-                        self.textLabel?.text = value ["name"] as? String
-                        if let profileImageUrl = value["profileImageUrl"] as? String {
-                        self.profileImageView.loadImageWithCacheWithUrlString(urlString: profileImageUrl)
-                        }
-                    }
-                    
-                }, withCancel: nil)
-            }
+            setupNameAndProfileImage()
            detailTextLabel?.text =  message?.text
             if let seconds = message?.timeStamp.doubleValue {
                 let timeStampDate = NSDate(timeIntervalSinceReferenceDate: seconds)
@@ -33,8 +22,32 @@ class UserCell:UITableViewCell {
                 timeLable.text = dateFormatter.string(for: timeStampDate)
 
             }
-//            timeLable.text = message?.timeStamp.stringValue
         }
+    }
+    
+    private func setupNameAndProfileImage(){
+        //manipulates the name and profileimage in both side
+        let chatPartnerId: String?
+        if message?.fromId == Auth.auth().currentUser?.uid{
+            chatPartnerId = message?.toId
+        }
+        else{
+            chatPartnerId = message?.fromId
+        }
+      //grabs name and profileimage from users
+        if let id = chatPartnerId {
+            let ref = Database.database().reference().child("users").child(id)
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let value = snapshot.value as? NSDictionary {
+                    self.textLabel?.text = value ["name"] as? String
+                    if let profileImageUrl = value["profileImageUrl"] as? String {
+                        self.profileImageView.loadImageWithCacheWithUrlString(urlString: profileImageUrl)
+                    }
+                }
+                
+            }, withCancel: nil)
+        }
+
     }
     
     

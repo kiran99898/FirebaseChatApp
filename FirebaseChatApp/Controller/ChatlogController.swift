@@ -77,6 +77,7 @@ class ChatlogController: UICollectionViewController {
         seperator.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
 
     }
+    
     @objc func handleSendButton()  {
         let ref = Database.database().reference().child("messages")
         let childRef = ref.childByAutoId()
@@ -84,7 +85,23 @@ class ChatlogController: UICollectionViewController {
         let fromId = Auth.auth().currentUser!.uid
         let timeStamp =  NSDate().timeIntervalSince1970
         let values = ["text": inputTextField.text!, "toId": toId, "FromId": fromId, "TimeStamp": timeStamp] as [String : Any]
-        childRef.updateChildValues(values)
+        //childRef.updateChildValues(values)
+// creates new child user-message
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            // refrence from sender or fromId
+            let userMessageRef = Database.database().reference().child("user-messages").child(fromId)
+            let messageId = childRef.key
+            userMessageRef.updateChildValues([messageId: 1])
+            //refrence for recipient ie toid
+            let recipientMessageRef = Database.database().reference().child("user-messages").child(toId)
+            recipientMessageRef.updateChildValues([messageId: 1])
+        }
+        
+
     }
     
 

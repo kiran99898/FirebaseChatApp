@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
     func handleLoginButton(){
         print("loginbutton tapped")
         guard let email = emailTextfield.text,  let password = passwordTextfield.text else {
-            print("email is not valid")
+            print("error")
             return
         }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
